@@ -1,0 +1,16 @@
+<h1>Admin Page</h1>
+
+<% @users.each do |user| %>
+<p>
+  ID <%= user.id%>
+  <br>
+  Username: <%= user.username %>
+  <br>
+  is_admin? <%= user.is_admin %>
+  <br>
+</p>
+<% end %>
+
+<p>
+  <a href = "/logout" class = "btn btn-danger">Logout</a>
+</p>

@@ -1,0 +1,11 @@
+<h1>Your profile</h1>
+
+<p>
+  ID: <%= @user.id %>
+</p>
+
+<p>
+  Username: <%= @user.username %>
+</p>
+
+<%= link_to("Edit your profile", users_edit_path) %>
