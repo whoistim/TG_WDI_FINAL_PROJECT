@@ -8,10 +8,10 @@ def create
   marker = Marker.new #create(params.permit!)
 
   marker.user_id = 1 #session[:user_id]
-  marker.tag = 'time' #marker_params[:tag]
-  marker.video_time = '11212' #marker_params[:video_time]
-  marker.video_id = '12121' #marker_params[:video_id]
-  marker.video_length = '2323' #marker_params[:video_length]
+  marker.tag = marker_params[:tag]
+  marker.video_time = marker_params[:video_time]
+  marker.video_id = marker_params[:video_id]
+  marker.video_length = marker_params[:video_length]
 
   marker.save
   # binding.pry

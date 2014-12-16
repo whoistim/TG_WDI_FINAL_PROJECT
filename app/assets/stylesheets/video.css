@@ -1,0 +1,23 @@
+#timeline {
+  height: 40px;
+  position: relative;
+  width: 640px;
+}
+
+.marker {
+  position: absolute;
+  font-style: bold;
+  font-size: 24pt;
+  width: 15px;
+  height: 15px;
+  background: blue;
+  border-radius: 4px;
+}
+
+.row1 {
+  margin-top: 10px;
+}
+
+.row2 {
+  margin-top: 20px;
+}

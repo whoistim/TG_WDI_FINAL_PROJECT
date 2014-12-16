@@ -1,4 +1,11 @@
 
+var arrM = [];// array of marker locations
+
+var addRow = function(j){
+  arrM.push([j]);
+  console.log("rightEdge pushed to the array!");
+  return true;
+};
 // var tag = document.createElement('script');
 
 // tag.src = "https://www.youtube.com/iframe_api";
@@ -26,7 +33,6 @@ function onPlayerReady(event) {
   event.target.seekTo(100);
   // event.target.pauseVideo();
   event.target.setVolume(0);
-  // console.log(event.target.getCurrentTime());
 }
 
 // 5. The API calls this function when the player's state changes.
@@ -49,6 +55,56 @@ $( document ).ready(function() {
     var totalTime = player.getDuration();
     var timeNow = player.getCurrentTime();
     $('#showtime').html(100*timeNow/totalTime+"%");
+    var markerPercent = 100*timeNow/totalTime;
+
+    var offSet = function(){
+
+      return("left: "+markerPercent+"% height: "+markerRow*15+"px");
+    };
+
+
+//check for placement on the timeline
+    var rightEdge = (markerPercent/100*640)+15;//15 = marker width
+    var leftEdge = rightEdge - 15;
+    var markerRow = 1;
+
+    var checkClear = function(){
+      var i = 0;
+      var done = false;
+      while(!done){
+        console.log("the while loop is running!");
+        if(!arrM[i]){
+          addRow(rightEdge);
+          done = true;
+        }
+
+        var row = arrM[i];
+        var lastIndexOfRow = row.length-1;
+        var lastInRow = row[lastIndexOfRow];
+        console.log(lastInRow);
+
+        if(lastInRow < leftEdge){
+          arrM[i].push(rightEdge);
+          // console.log(arrM[i]);
+          markerRow = markerRow + i;
+          done = true;
+        }
+        else{
+          i++;
+        }
+      }
+    console.log(arrM);
+  };
+  checkClear();
+
+//places the marker on the timeline
+
+    var $span = $("<span>", {class: "marker", style: offSet});//CREATES A MARKER SPAN
+
+    $span.click(function(){
+    });
+    $("#timeline").prepend($span);
+
     $.ajax({
       url: "/markers",
       type: "POST",
@@ -60,13 +116,14 @@ $( document ).ready(function() {
         video_length: totalTime
       }
 
-
-    }).done(function(){
-      console.log("help");
+    }).done(function(response){
+console.log(offSet());
     });
 
 
   });
+
+
 
 
 });
