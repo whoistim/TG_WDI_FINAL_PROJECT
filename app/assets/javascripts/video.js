@@ -59,7 +59,8 @@ $( document ).ready(function() {
 
     var offSet = function(){
 
-      return("left: "+markerPercent+"% height: "+markerRow*15+"px");
+      return("left: "+markerPercent+"%");
+
     };
 
 
@@ -99,7 +100,7 @@ $( document ).ready(function() {
 
 //places the marker on the timeline
 
-    var $span = $("<span>", {class: "marker", style: offSet});//CREATES A MARKER SPAN
+    var $span = $("<span>", {class: "marker", style: offSet()});//CREATES A MARKER SPAN
 
     $span.click(function(){
     });
