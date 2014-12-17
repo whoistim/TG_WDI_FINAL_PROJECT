@@ -51,22 +51,15 @@ function stopVideo() {
 
 $( document ).ready(function() {
 
-  $("#time").bind("click", function() {
+  $(".btn").bind("click", function() {
     var totalTime = player.getDuration();
     var timeNow = player.getCurrentTime();
-    $('#showtime').html(100*timeNow/totalTime+"%");
+    // $('#showtime').html(100*timeNow/totalTime+"%");
     var markerPercent = 100*timeNow/totalTime;
 
-    var offSet = function(){
-
-      return("left: "+markerPercent+"%");
-
-    };
-
-
-//check for placement on the timeline
-    var rightEdge = (markerPercent/100*640)+15;//15 = marker width
-    var leftEdge = rightEdge - 15;
+    //check for placement on the timeline
+    var rightEdge = (markerPercent/100*640)+5;//15 = marker width
+    var leftEdge = rightEdge - 5;
     var markerRow = 1;
 
     var checkClear = function(){
@@ -76,6 +69,7 @@ $( document ).ready(function() {
         console.log("the while loop is running!");
         if(!arrM[i]){
           addRow(rightEdge);
+          markerRow = markerRow + i;
           done = true;
         }
 
@@ -96,11 +90,13 @@ $( document ).ready(function() {
       }
     console.log(arrM);
   };
+
   checkClear();
 
 //places the marker on the timeline
-
-    var $span = $("<span>", {class: "marker", style: offSet()});//CREATES A MARKER SPAN
+    var offSet = "left: "+ markerPercent + "%; top: "+markerRow*16+"px";
+    var mClass = this.name;
+    var $span = $("<span>", {class: mClass, style: offSet});//CREATES A MARKER SPAN
 
     $span.click(function(){
     });
@@ -118,7 +114,6 @@ $( document ).ready(function() {
       }
 
     }).done(function(response){
-console.log(offSet());
     });
 
 

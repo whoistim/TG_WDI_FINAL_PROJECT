@@ -4,20 +4,39 @@
   width: 640px;
 }
 
-.marker {
+.interesting {
   position: absolute;
-  font-style: bold;
-  font-size: 24pt;
-  width: 15px;
+  width: 5px;
   height: 15px;
-  background: blue;
+  background: #31b0d5;
   border-radius: 4px;
 }
 
-.row1 {
-  margin-top: 10px;
+.rephrase {
+  position: absolute;
+  width: 5px;
+  height: 15px;
+  background: green;
+  border-radius: 4px;
 }
 
-.row2 {
-  margin-top: 20px;
+.drill {
+  position: absolute;
+  width: 5px;
+  height: 15px;
+  background: red;
+  border-radius: 4px;
 }
+
+.stop {
+  position: absolute;
+  width: 5px;
+  height: 15px;
+  background: orange;
+  border-radius: 4px;
+}
+
+.btn {
+  margin-left: 10px;
+}
+
