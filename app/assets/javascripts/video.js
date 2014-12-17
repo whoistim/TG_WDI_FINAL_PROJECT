@@ -56,6 +56,11 @@ function stopVideo() {
 
 $( document ).ready(function() {
 
+  $.get("/markers", function(markers){
+    console.log(markers);
+    }
+  );
+
   //THIS IS THE BUTTON RELATED STUFF//
 
   $(".btn").bind("click", function() {
