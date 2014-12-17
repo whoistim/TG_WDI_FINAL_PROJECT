@@ -9,5 +9,5 @@
 
 User.create({username: "whoistim", password: "secret"})
 
-Marker.create({tag: "time", userid: 1, })
+Marker.create({tag: "time", user_id: 1, })
 

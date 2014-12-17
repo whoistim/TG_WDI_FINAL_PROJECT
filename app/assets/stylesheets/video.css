@@ -2,7 +2,11 @@
   height: 100px;
   position: relative;
   width: 640px;
-  overflow-y: scroll
+  overflow-y: scroll;
+  margin-bottom: 10px;
+  border-radius: 0 0 5px 5px;
+  border: 1px solid #D8D8D8;
+
 }
 
 .interesting {

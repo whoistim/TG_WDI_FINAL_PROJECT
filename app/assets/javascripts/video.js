@@ -3,15 +3,18 @@ var arrM = [];// array of marker locations
 
 var addRow = function(j){
   arrM.push([j]);
-  console.log("rightEdge pushed to the array!");
   return true;
 };
-// var tag = document.createElement('script');
 
-// tag.src = "https://www.youtube.com/iframe_api";
-// var firstScriptTag = document.getElementsByTagName('script')[0];
-// firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
+
+
+                  // bunch of YouTube stuff
+                  // var tag = document.createElement('script');
+                  // tag.src = "https://www.youtube.com/iframe_api";
+                  // var firstScriptTag = document.getElementsByTagName('script')[0];
+                  // firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+//// YOUTUBE STUFF //////////////
 // 3. This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
 var player;
@@ -49,33 +52,36 @@ function stopVideo() {
   player.stopVideo();
 }
 
+//// END OF YOUTUBE STUFF //////////////
+
 $( document ).ready(function() {
 
-  $(".btn").bind("click", function() {
-    var totalTime = player.getDuration();
-    var timeNow = player.getCurrentTime();
-    var markerPercent = 100*timeNow/totalTime;
+  //THIS IS THE BUTTON RELATED STUFF//
 
-    //check for placement on the timeline
+  $(".btn").bind("click", function() {
+    //SETS UP THE INFO FOR SETTING MARKERS
+    var totalTime = player.getDuration();      //LENGTH OF THE VIDEO
+    var timeNow = player.getCurrentTime();     //TIME THE BUTTON WAS CLICKED
+    var markerPercent = 100*timeNow/totalTime; //MARKER LOCATION AS A % OF THE VIDEO
+    var comment = $("#comment").val(); //THE COMMENT ENTERED WITH THE BUTTON CLICK
+    $("#comment").val("");             //CLEARING THE COMMENT AFTER SUBMISSION
+
+    //CHECK TO AVOID MARKERS GETTING PLACED OVER EACH OTHER
     var rightEdge = (markerPercent/100*640)+5;//15 = marker width
     var leftEdge = rightEdge - 5;
-    var markerRow = 1;//to keep track of how much to vertically offset markers
-
+    var markerRow = 1; //to keep track of how much to vertically offset markers
     var checkClear = function(){
       var i = 0;
       var done = false;
       while(!done){
-        console.log("the while loop is running!");
         if(!arrM[i]){
           addRow(rightEdge);
           markerRow = markerRow + i;
           done = true;
         }
-
         var row = arrM[i];
         var lastIndexOfRow = row.length-1;
         var lastInRow = row[lastIndexOfRow];
-        console.log(lastInRow);
 
         if(lastInRow < leftEdge){
           arrM[i].push(rightEdge);
@@ -87,22 +93,24 @@ $( document ).ready(function() {
           i++;
         }
       }
-    console.log(arrM);
-  };
+    };//CLOSES THE CLEARCHECK FUNCTION
 
-  checkClear();
+  checkClear();  //RUNS THE MARKER COLLISION CHECK
 
-//places the marker on the timeline
+    //places the marker on the timeline
     var offSet = "left: "+ markerPercent + "%; top: "+markerRow*16+"px";
     var mClass = this.name;
     var $span = $("<span>", {class: mClass, style: offSet});//CREATES A MARKER SPAN
 
 
+//CREATES THE MESSAGE BOX FOR EACH MARKER
     $span.click(function(){
 
+      comment = comment || mClass;
         $('.message-box').remove();
+
         var $mess = $('<div>').addClass('message-box')
-    .html('<div><img class="imgClose" src="/assets/close_x.svg" /><h4 class="message">Interesting point. --TG</h4></div>')
+    .html('<div><img class="imgClose" src="/assets/close_x.svg" /><h4 class="message">'+comment+'</h4></div>')
                              .css('left', $(this).position().left);
         $(this).after($mess);
         $mess.fadeIn('fast');
@@ -110,10 +118,12 @@ $( document ).ready(function() {
         $('#timeline').on('click', '.imgClose', function () {
         $(this).parent().fadeOut('fast', function () { $(this).parent().remove(); });
         });
-    });
+    }); //CLOSES MESSAGE BOX FOR EACH MARKER
 
+//THE MARKER GETTS PLACED ON THE TIMELINE DIV
     $("#timeline").prepend($span);
 
+//MARKER GETS SENT TO THE DATABASE
     $.ajax({
       url: "/markers",
       type: "POST",
@@ -122,16 +132,15 @@ $( document ).ready(function() {
         tag: this.name,
         video_time: timeNow,
         video_id: player.A.videoData.video_id,
-        video_length: totalTime
+        video_length: totalTime,
+        comment: comment
       }
 
     }).done(function(response){
-    });
+    });//CLOSES THE AJAX CALL
+
+  }); //CLOSES BINDING MARKER CREATION TO THE BUTTONS
+
+}); //CLOSES DOCUMENT READY
 
 
-  });
-
-
-
-
-});

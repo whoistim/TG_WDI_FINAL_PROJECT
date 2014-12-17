@@ -12,6 +12,7 @@ def create
   marker.video_time = marker_params[:video_time]
   marker.video_id = marker_params[:video_id]
   marker.video_length = marker_params[:video_length]
+  marker.comment = marker_params[:comment]
 
   marker.save
   # binding.pry
