@@ -98,8 +98,17 @@ $( document ).ready(function() {
     var $span = $("<span>", {class: mClass, style: offSet});//CREATES A MARKER SPAN
 
     $span.click(function(){
-      $("<div>Hey</div>").fadeToggle();
+
+        $('.message-box').remove();
+        var $mess = $('<div>').addClass('message-box')
+    .html('<div><img class="imgClose" src="/assets/close_x.svg" /><h4 class="message"></h4></div>')
+                             .css('left', $(this).position().left);
+        $(this).after($mess);
+        $mess.fadeIn('fast');
     });
+    $('#timeline').on('click', '.imgClose', function () {
+        $(this).parent().fadeOut('fast', function () { $(this).parent().remove(); });
+        });
     $("#timeline").prepend($span);
 
     $.ajax({
