@@ -54,13 +54,12 @@ $( document ).ready(function() {
   $(".btn").bind("click", function() {
     var totalTime = player.getDuration();
     var timeNow = player.getCurrentTime();
-    // $('#showtime').html(100*timeNow/totalTime+"%");
     var markerPercent = 100*timeNow/totalTime;
 
     //check for placement on the timeline
     var rightEdge = (markerPercent/100*640)+5;//15 = marker width
     var leftEdge = rightEdge - 5;
-    var markerRow = 1;
+    var markerRow = 1;//to keep track of how much to vertically offset markers
 
     var checkClear = function(){
       var i = 0;
@@ -99,6 +98,7 @@ $( document ).ready(function() {
     var $span = $("<span>", {class: mClass, style: offSet});//CREATES A MARKER SPAN
 
     $span.click(function(){
+      $("<div>Hey</div>").fadeToggle();
     });
     $("#timeline").prepend($span);
 

@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-# User.create({username: "whoistim", password: "secret"})
+User.create({username: "whoistim", password: "secret"})
 
-# Marker.create({tag: "time", userid: 1, })
+Marker.create({tag: "time", userid: 1, })
 
