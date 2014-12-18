@@ -22,7 +22,7 @@ function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {//'player' refers to the div id above
     height: '390',
     width: '640',
-    videoId: 'M7lc1UVf-VE',
+    videoId: 'XWtzyLTcnno',
     // playerVars: { 'controls': 0 },
     events: {
       'onReady': onPlayerReady,
@@ -104,9 +104,8 @@ console.log(markers);
 
       comment = comment || mClass;
         $('.message-box').remove();
-
         var $mess = $('<div>').addClass('message-box')
-    .html('<div><img class="imgClose" src="/assets/close_x.svg" /><h5 class="message">'+comment+'</h5></div>')
+    .html('<div><img class="imgClose" src="/assets/close_x.svg" /><p class="message">'+comment+'</p></div>')
                              .css('left', $(this).position().left);
         $(this).after($mess);
         $mess.fadeIn('fast');
@@ -180,7 +179,7 @@ console.log(markers);
         $('.message-box').remove();
 
         var $mess = $('<div>').addClass('message-box')
-    .html('<div><img class="imgClose" src="/assets/close_x.svg" /><h5 class="message">'+comment+'</h5></div>')
+    .html('<div><img class="imgClose" src="/assets/close_x.svg" /><p class="message">'+comment+'</p></div>')
                              .css('left', $(this).position().left);
         $(this).after($mess);
         $mess.fadeIn('fast');

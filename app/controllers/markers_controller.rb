@@ -25,4 +25,7 @@ def index
   render json: markers
 end
 
+
+
+
 end

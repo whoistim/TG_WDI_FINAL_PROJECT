@@ -65,4 +65,7 @@
       margin-left: 10px;
       min-width: 200px;
   }
-
+.message{
+  margin-top: 10px;
+  font-size: 14pt;
+}
