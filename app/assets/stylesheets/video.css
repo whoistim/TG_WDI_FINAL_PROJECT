@@ -63,5 +63,6 @@
       z-index:1;
       font-size: 100%;
       margin-left: 10px;
+      min-width: 200px;
   }
 

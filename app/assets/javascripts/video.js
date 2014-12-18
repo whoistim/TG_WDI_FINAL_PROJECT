@@ -57,7 +57,72 @@ function stopVideo() {
 $( document ).ready(function() {
 
   $.get("/markers", function(markers){
-    console.log(markers);
+console.log(markers);
+    markers.forEach(function(marker){
+      var markerPercent = 110*marker.video_time/marker.video_length;
+      var comment = marker.comment;
+      var rightEdge = (markerPercent/100*640)+5;//15 = marker width
+      var leftEdge = rightEdge - 5;
+      var markerRow = 1; //to keep track of how much to vertically offset markers
+
+      var checkClear = function(){
+        console.log("checkClear got called");
+      var i = 0;
+      var done = false;
+      while(!done){
+        if(!arrM[i]){
+          addRow(rightEdge);
+          markerRow = markerRow + i;
+          done = true;
+        }
+        var row = arrM[i];
+        var lastIndexOfRow = row.length-1;
+        var lastInRow = row[lastIndexOfRow];
+
+        if(lastInRow < leftEdge){
+          arrM[i].push(rightEdge);
+          // console.log(arrM[i]);
+          markerRow = markerRow + i;
+          done = true;
+        }
+        else{
+          i++;
+        }
+      }
+    };//CLOSES THE CLEARCHECK FUNCTION
+
+  checkClear();  //RUNS THE MARKER COLLISION CHECK
+
+    //places the marker on the timeline
+    var offSet = "left: "+ markerPercent + "%; top: "+markerRow*16+"px";
+    var mClass = marker.tag;
+    var $span = $("<span>", {class: mClass, style: offSet});//CREATES A MARKER SPAN
+
+
+//CREATES THE MESSAGE BOX FOR EACH MARKER
+    $span.click(function(){
+
+      comment = comment || mClass;
+        $('.message-box').remove();
+
+        var $mess = $('<div>').addClass('message-box')
+    .html('<div><img class="imgClose" src="/assets/close_x.svg" /><h5 class="message">'+comment+'</h5></div>')
+                             .css('left', $(this).position().left);
+        $(this).after($mess);
+        $mess.fadeIn('fast');
+
+        $('#timeline').on('click', '.imgClose', function () {
+        $(this).parent().fadeOut('fast', function () { $(this).parent().remove(); });
+        });
+    }); //CLOSES MESSAGE BOX FOR EACH MARKER
+
+//THE MARKER GETTS PLACED ON THE TIMELINE DIV
+    $("#timeline").prepend($span);
+
+    });
+
+
+
     }
   );
 
@@ -115,7 +180,7 @@ $( document ).ready(function() {
         $('.message-box').remove();
 
         var $mess = $('<div>').addClass('message-box')
-    .html('<div><img class="imgClose" src="/assets/close_x.svg" /><h4 class="message">'+comment+'</h4></div>')
+    .html('<div><img class="imgClose" src="/assets/close_x.svg" /><h5 class="message">'+comment+'</h5></div>')
                              .css('left', $(this).position().left);
         $(this).after($mess);
         $mess.fadeIn('fast');
