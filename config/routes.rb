@@ -35,6 +35,8 @@ Rails.application.routes.draw do
 
   ### MARKERS ROUTES
 
-  post 'markers', to: 'markers#create', as: 'markers'
+  get 'markers', to: 'markers#index', as: 'markers'
+
+  post 'markers', to: 'markers#create'
 
 end

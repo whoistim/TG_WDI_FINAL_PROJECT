@@ -20,6 +20,9 @@ def create
 
 end
 
-
+def index
+  markers = Marker.all
+  render json: markers
+end
 
 end
